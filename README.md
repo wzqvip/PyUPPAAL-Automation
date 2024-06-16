@@ -1,21 +1,24 @@
+# This is testing the Github Action function to Perform Automatic pytest
+
+# This is using automatic tools to download PYUPPAAL ACADEMIC VERSION. Do not directly use the downloader script for any other purpose than academic.
+
 # Introduction
 
-[![Documentation Status](https://readthedocs.org/projects/pyuppaal/badge/?version=latest)](https://pyuppaal.readthedocs.io/en/latest/?badge=latest) 
+[![Documentation Status](https://readthedocs.org/projects/pyuppaal/badge/?version=latest)](https://pyuppaal.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/pyuppaal.svg)](https://badge.fury.io/py/pyuppaal)
 ![](https://img.shields.io/badge/test-passing-brightgreen)
 [![Licence](https://img.shields.io/github/license/jack0chan/pyuppaal)](https://opensource.org/licenses/mit-license.php)
-![](https://img.shields.io/badge/platform-Windows,%20Linux,%20Darwin-blue) 
+![](https://img.shields.io/badge/platform-Windows,%20Linux,%20Darwin-blue)
 
 `PyUPPAAL` is a python package developed basically for reflecting UPPAAL's model editing, verification, and counter-example parsing operations into scripts. Implementing iterative model checking workflow is a typical application of pyuppaal, such as CEGAR, CEGIS, fault diagnosis, risk analysis, ect. We will add references and case studies for these problems. Some function have been implemented such as `find_all_patterns()`, `fault_diagnosability()`, `fault_identification()`, and `fault_tolerance()`.
 
-Notice: 
+Notice:
 
 - report issues / requirements at: [github-issues](https://github.com/Jack0Chan/PyUPPAAL/issues).
 - more demos for basic & advanced usage will come soon.
 - [todo] Support for *SMC* analyzing.
 
 Demos are provided to help users get familiar with `PyUPPAAL`:
-
 
 <a href="https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo4-Scripted%20Model%20Construction.ipynb">
     <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/readme3.png" width="270px" alt="">
@@ -52,15 +55,13 @@ Demos are provided to help users get familiar with `PyUPPAAL`:
 
 `pyuppaal.set_verifyta_path("your/path/to//verifyta.exe")`
 
-
 ## 3. Load, Edit, and Verify a Model
 
-1. Firstly we load the model [demo.xml](https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/demo.xml) shown below. 
+1. Firstly we load the model [demo.xml](https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/demo.xml) shown below.
 2. Then you can verify, and return the verify results as terminal outputs, or parsed SimTrace.
 3. In this demo, we just edit the `queries` of the `.xml` model, and we also provide a demo showing how to edit the template, locations, edges, etc.: [Demo-Scripted Model Construction](https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo4-Scripted%20Model%20Construction.ipynb).
 
 <img src=https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/demo.png width=250 />
-
 
 ```python
 import pyuppaal
@@ -83,7 +84,7 @@ print(f"full trace: {simulation_trace}")
 ```
 
     pyuppaal version: 1.2.1
-    
+
     ======== terminal res ========
     Writing example trace to demo-1.xtr
     Options for the verification:
@@ -95,31 +96,29 @@ print(f"full trace: {simulation_trace}")
     [2K
     Verifying formula 1 at /nta/queries/query[1]/formula
     [2K -- Formula is satisfied.
-    
+
     ======== parsed res ========
     untime pattern: ['a', 'b']
     full trace: State [0]: ['P1.start']
     global_variables [0]: None
     Clock_constraints [0]: [t(0) - P1.t ≤ 0; P1.t - t(0) ≤ 10; ]
-    transitions [0]: a: P1 -> ; P1.start -> P1._id2;
-    -----------------------------------
-    State [1]: ['P1._id2']
-    global_variables [1]: None
-    Clock_constraints [1]: [t(0) - P1.t ≤ -10; ]
-    transitions [1]: b: P1 -> ; P1._id2 -> P1.pass;
-    -----------------------------------
-    State [2]: ['P1.pass']
-    global_variables [2]: None
-    Clock_constraints [2]: [t(0) - P1.t ≤ -10; ]
-    
-    
+
+| transitions [0]: a: P1 -> ; P1.start -> P1._id2;  |
+| ------------------------------------------------- |
+| State [1]: ['P1._id2']                            |
+| global_variables [1]: None                        |
+| Clock_constraints [1]: [t(0) - P1.t ≤ -10; ] |
+| transitions [1]: b: P1 -> ; P1._id2 -> P1.pass;   |
+| -----------------------------------               |
+| State [2]: ['P1.pass']                            |
+| global_variables [2]: None                        |
+| Clock_constraints [2]: [t(0) - P1.t ≤ -10; ] |
 
 ## 4. Find all patterns
 
 Now we want find all possible patterns that leads to `P1.pass`. The red line is pattern1, and the green line is pattern2.
 
 <img src=https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/demo_patterns.png width=250 />
-
 
 ```python
 for i, st in enumerate(umodel.find_all_patterns()):
@@ -128,10 +127,8 @@ for i, st in enumerate(umodel.find_all_patterns()):
 
     pattern1:  ['a', 'b']
     pattern2:  ['c', 'd']
-    
 
 ## 4. Verify with Multi-threads
-
 
 ```python
 import pyuppaal as pyu
@@ -162,7 +159,6 @@ print(f'Verify with multi-threads, time usage {time.time() - t0}')
     1.2.1
     Verify with for loop, time usage 9.384526014328003
     Verify with multi-threads, time usage 1.61281418800354
-    
 
 ## 5. Get Communication Graph
 
@@ -175,6 +171,7 @@ An example communication graph of a complex model in [Demo_PipeNet](https://pyup
 ## 6. Backup of old docs
 
 Demos are provided to help users get familiar with `PyUPPAAL` (can not be rendered by github):
+
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
     <div style="margin: 10px; width: 300px;">
         <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/pipeNetPatterns.png" style="width: 300px; height: 200px; object-fit: cover;">
@@ -188,7 +185,7 @@ Demos are provided to help users get familiar with `PyUPPAAL` (can not be render
         </ol>
     </div>
     <div style="margin: 10px; width: 300px;">
-        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/scripted_model_building_receiver.png" style="width: 300px; height: 200px; object-fit: cover;" alt="描述2">
+        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/scripted_model_building_receiver.png" style="width: 300px; height: 200px; object-fit: cover;" alt="杝述2">
         <h5 style="margin: 0 0 4px 0; font-size: 14px;"><a href="https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo4-Scripted%20Model%20Construction.ipynb">Demo-Scripted Model Construction</a></h5>
         <p style="margin: 0; font-size: 14px;">This demo constructs a model solely with PyUPPAAL APIs, including:</p>
         <ol style="margin: 0; padding-left: 20px; font-size: 14px;">
@@ -198,20 +195,18 @@ Demos are provided to help users get familiar with `PyUPPAAL` (can not be render
         </ol>
     </div>
     <div style="margin: 10px; width: 300px;">
-        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/pedestrian_overall.png" style="width: 300px; height: 200px; object-fit: cover;" alt="描述3">
+        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/pedestrian_overall.png" style="width: 300px; height: 200px; object-fit: cover;" alt="杝述3">
         <h5 style="margin: 0 0 4px 0; font-size: 14px;"><a href="https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo2-Pedestrian.ipynb">Demo-Pedestrain</a></h5>
         <p style="margin: 0; font-size: 14px;">This demo shows how to identify all event sequences that could result in a fault state, and see you can get ALL possible patterns only with PyUPPAAL <code>find_all_patterns()</code>.</p>
     </div>
     <div style="margin: 10px; width: 300px;">
-        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/npn_monitors.png" style="width: 300px; height: 200px; object-fit: cover;" alt="描述3">
+        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/npn_monitors.png" style="width: 300px; height: 200px; object-fit: cover;" alt="杝述3">
         <h5 style="margin: 0 0 4px 0; font-size: 14px;"><a href="https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo5-Trace%20Parser.ipynb">Demo-Trace Parser</a></h5>
         <p style="margin: 0; font-size: 14px; font-size: 14px;">In this demo, you will learn how to model the <code>input</code> and <code>observations</code> events of a descrete event system (DES), and how to extract information from parsed counter example.</p>
     </div>
     <div style="margin: 10px; width: 300px;">
-        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/diagnosis_identification.png" style="width: 300px; height: 200px; object-fit: cover;" alt="描述3">
+        <img src="https://raw.githubusercontent.com/Jack0Chan/pyuppaal/main/src/test_demos/figs/diagnosis_identification.png" style="width: 300px; height: 200px; object-fit: cover;" alt="杝述3">
         <h5 style="margin: 0 0 4px 0; font-size: 14px;"><a href="https://github.com/Jack0Chan/PyUPPAAL/blob/main/src/test_demos/Demo3-Fault%20Diagnosis.ipynb">Demo-Fault Identification and Diagnosability</a></h5>
         <p style="margin: 0; font-size: 14px;">In this demo, you will analyze the identification and diagnosability of certain fault, wich advanced methods of <code>pyuppaal</code>.</p>
     </div>
 </div>
-
-
