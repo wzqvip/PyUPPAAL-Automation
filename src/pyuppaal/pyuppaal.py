@@ -20,14 +20,14 @@ class DeveloperTools:
     给开发者用的开发工具, 用于内部测试, 可以在多平台进行测试。 普通用户无法使用。
     """
     @staticmethod
-    def get_verifyta_path_dev(uppaal_version: int = 5):
+    def get_verifyta_path_dev(uppaal_version: int = 4):
         import os
 
         curr_dir = os.path.dirname(os.path.abspath(__file__))
 
         if uppaal_version == 4:
             # 和github desktop的根目录相同
-            uppaal_dir = os.path.join(curr_dir, '../../.github/workflows/uppaal64-4.1.24')
+            uppaal_dir = "/home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/uppaal64-4.1.24"
         elif uppaal_version == 5:
             # 和github desktop的根目录相同
             uppaal_dir = os.path.join(curr_dir, '../../../uppaal64-5.0.0')
