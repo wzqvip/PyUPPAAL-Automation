@@ -34,6 +34,7 @@ jobs:
         source ~/.bashrc
         conda activate myenv
         pip install pyuppaal
+        pip install selenium
         python /home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/.github/workflows/get_pyuppaal.py
     # - name: Lint with flake8
     #   run: |
