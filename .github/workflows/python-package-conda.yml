@@ -29,11 +29,11 @@ jobs:
         conda init bash
         source ~/.bashrc
         conda activate myenv
-        - name: Install pyuppaal
-        run: |
-          source ~/.bashrc
-          conda activate myenv
-          pip install pyuppaal
+    - name: Install pyuppaal
+      run: |
+        source ~/.bashrc
+        conda activate myenv
+        pip install pyuppaal
     - name: Install Chrome
       run: |
         sudo apt-get update
