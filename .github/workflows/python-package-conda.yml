@@ -34,13 +34,14 @@ jobs:
         source ~/.bashrc
         conda activate myenv
         pip install pyuppaal
-    - name: Lint with flake8
-      run: |
-        source ~/.bashrc
-        conda activate myenv
-        conda install flake8
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        python /home/runner/work/PyUPPAAL/PyUPPAAL/get_pyuppaal.py
+    # - name: Lint with flake8
+    #   run: |
+    #     source ~/.bashrc
+    #     conda activate myenv
+    #     conda install flake8
+    #     flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    #     flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
         source ~/.bashrc

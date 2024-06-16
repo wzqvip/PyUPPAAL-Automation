@@ -1,58 +1,75 @@
-import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+import os
+import zipfile
 
-# URL to the form.php script
-url = 'https://www2.it.uu.se/research/group/darts/uppaal/download/form.php'
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Headers as seen in the Charles proxy tool
-headers = {
-    'Host': 'www2.it.uu.se',
-    'Connection': 'keep-alive',
-    'Content-Length': '176',
-    'Cache-Control': 'max-age=0',
-    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Microsoft Edge";v="126"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'Upgrade-Insecure-Requests': '1',
-    'Origin': 'https://www2.it.uu.se',
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    'Sec-Fetch-Site': 'same-origin',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-User': '?1',
-    'Sec-Fetch-Dest': 'document',
-    'Referer': 'https://www2.it.uu.se/research/group/darts/uppaal/download/registration.php?id=0&subid=17',
-    'Accept-Encoding': 'gzip, deflate, br, zstd',
-    'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
-    'Cookie': 'PHPSESSID=11eIhn7o9hehdf50sjfeuqqm83; sc_is_visitor_unique=rx641662.1718505897.103E5367DBAF4F54D0389C3E2D89579A.2.2.2.2.2.2.2.2.2.2.2.2'
+
+options = webdriver.ChromeOptions()
+options.add_argument("--start-maximized")
+
+download_dir = os.path.join(current_dir, 'downloads')  # 将下载路径设置为当前文件目录中的downloads文件夹
+if not os.path.exists(download_dir):
+    os.makedirs(download_dir)
+
+prefs = {
+    "download.default_directory": download_dir,
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True
 }
+options.add_experimental_option("prefs", prefs)
 
-# Data payload, if required (you may need to adjust this based on the actual form data)
-payload = {
-    'Name': 'Ziqi Wang',
-    'JobTitle': 'Student',
-    'Company': 'ShanghaiTech University',
-    'Street': '',
-    'City': '',
-    'Country': '',
-    'Postcode': '',
-    'Email': 'tacoin@foxmail.com',
-    'Homepage': '',
-    'Telephone': '',
-    'Fax': '',
-    'Agreement': 'on',
-    'id': '0',
-    'subid': '17'
-}
+# 初始化Chrome浏览器
+driver = webdriver.Chrome(options=options)
 
-# Perform a POST request to form.php
-response = requests.post(url, headers=headers, data=payload)
+try:
+    # 打开目标网址
+    driver.get('https://www2.it.uu.se/research/group/darts/uppaal/download/registration.php?id=0&subid=7')
 
-# Check if the request was successful
-if response.status_code == 200:
-    # Save the response content to a file
-    with open('downloaded_file', 'wb') as file:
-        file.write(response.content)
-    print('File downloaded successfully.')
-else:
-    print(f'Failed to download file. Status code: {response.status_code}')
+    # 填写表单
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'Name'))).send_keys('"Automatic Bot"')
+
+    driver.find_element(By.NAME, 'JobTitle').send_keys('Student')
+    driver.find_element(By.NAME, 'Company').send_keys('ShanghaiTech University')
+    driver.find_element(By.NAME, 'Email').send_keys('tacoin@foxmail.com')
+    driver.find_element(By.NAME, 'Agreement').click()
+
+    # 提交表单
+    driver.find_element(By.XPATH, '//input[@value="Register&Download"]').click()
+
+    # # 等待下载页面加载完成
+    # WebDriverWait(driver, 30).until(
+    #     EC.text_to_be_present_in_element((By.TAG_NAME, 'h1'), 'Registration Completed')
+    # )
+
+    print('File download started.')
+    time.sleep(10)  # 等待下载开始（根据需要调整等待时间）
+
+    print('begin to unzip.')
+
+    # ZIP文件路径
+    zip_file_path = os.path.join(current_dir, 'downloads', 'uppaal64-4.1.24.zip')  # 替换为实际的ZIP文件名
+
+    # 解压目标路径
+    extract_to_path = os.path.join(current_dir, 'uppaal64-4.1.24')  # 替换为实际的解压目标文件夹名
+
+    # 创建解压目标文件夹（如果不存在）
+    if not os.path.exists(extract_to_path):
+        os.makedirs(extract_to_path)
+
+    # 解压ZIP文件
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to_path)
+
+    print(f'Unzipped: {extract_to_path}')
+
+finally:
+    # 关闭浏览器
+    driver.quit()
+

@@ -27,12 +27,12 @@ class DeveloperTools:
 
         if uppaal_version == 4:
             # 和github desktop的根目录相同
-            uppaal_dir = os.path.join(curr_dir, '../../../uppaal64-4.1.26')
+            uppaal_dir = os.path.join(curr_dir, '../../.github/workflows/uppaal64-4.1.24')
         elif uppaal_version == 5:
             # 和github desktop的根目录相同
             uppaal_dir = os.path.join(curr_dir, '../../../uppaal64-5.0.0')
         else:
-            raise ValueError("uppaal_version must be 4 or 5.\n Currently tested versions are 4.1.26 and 5.0.0")
+            raise ValueError("uppaal_version must be 4 or 5.\n Currently tested versions are 4.1.24 and 5.0.0")
 
         path_dir = {
             'Windows': os.path.join(uppaal_dir, 'bin-Windows/verifyta.exe'),
