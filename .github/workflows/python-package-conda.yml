@@ -34,7 +34,7 @@ jobs:
         source ~/.bashrc
         conda activate myenv
         pip install pyuppaal
-        python /home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/get_pyuppaal.py
+        python /home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/.github/workflows/get_pyuppaal.py
     # - name: Lint with flake8
     #   run: |
     #     source ~/.bashrc
