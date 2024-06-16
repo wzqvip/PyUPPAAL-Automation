@@ -25,14 +25,7 @@ class DeveloperTools:
 
         curr_dir = os.path.dirname(os.path.abspath(__file__))
 
-        if uppaal_version == 4:
-            # 和github desktop的根目录相同
-            uppaal_dir = "/home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/uppaal64-4.1.24"
-        elif uppaal_version == 5:
-            # 和github desktop的根目录相同
-            uppaal_dir = os.path.join(curr_dir, '../../../uppaal64-5.0.0')
-        else:
-            raise ValueError("uppaal_version must be 4 or 5.\n Currently tested versions are 4.1.24 and 5.0.0")
+        uppaal_dir = "/home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/uppaal64-4.1.24/"
 
         path_dir = {
             'Windows': os.path.join(uppaal_dir, 'bin-Windows/verifyta.exe'),
