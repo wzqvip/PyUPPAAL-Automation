@@ -33,7 +33,7 @@ try:
     driver.get('https://www2.it.uu.se/research/group/darts/uppaal/download/registration.php?id=0&subid=7')
 
     # 填写表单
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'Name'))).send_keys('"Automatic Bot"')
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'Name'))).send_keys('PyUPPAAL')
 
     driver.find_element(By.NAME, 'JobTitle').send_keys('Student')
     driver.find_element(By.NAME, 'Company').send_keys('ShanghaiTech University')

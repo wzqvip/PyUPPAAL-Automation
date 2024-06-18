@@ -25,7 +25,7 @@ class DeveloperTools:
 
         curr_dir = os.path.dirname(os.path.abspath(__file__))
 
-        uppaal_dir = "/home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/uppaal64-4.1.24/"
+        uppaal_dir = "curr_dir/../../../.github/workflows/uppaal64-4.1.24/"
 
         path_dir = {
             'Windows': os.path.join(uppaal_dir, 'bin-Windows/verifyta.exe'),
