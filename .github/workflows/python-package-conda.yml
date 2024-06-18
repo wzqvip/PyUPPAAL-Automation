@@ -49,7 +49,7 @@ jobs:
       run: |
         source ~/.bashrc
         conda activate myenv
-        pip install zipfile selenium
+        pip install selenium
         python /home/runner/work/PyUPPAAL-Automation/PyUPPAAL-Automation/.github/workflows/get_uppaal.py
     - name: Install pyuppaal
       run: |
